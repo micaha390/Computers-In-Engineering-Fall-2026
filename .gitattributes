@@ -1,0 +1,25 @@
+# Normalize text files in the repository
+* text=auto
+
+# Force source and build files to LF
+*.cpp text eol=lf
+*.hpp text eol=lf
+*.h   text eol=lf
+*.c   text eol=lf
+*.cc  text eol=lf
+*.hh  text eol=lf
+*.txt text eol=lf
+*.md  text eol=lf
+CMakeLists.txt text eol=lf
+*.cmake text eol=lf
+*.sh text eol=lf
+
+# Binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.pdf binary
+*.ogg binary
+*.flac binary
+*.zip binary
