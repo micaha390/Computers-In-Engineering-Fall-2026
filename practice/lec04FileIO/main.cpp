@@ -11,7 +11,7 @@ int main() {
         return -1;
     }
 
-    int num, sum=0, count=0;
+    int num{}, sum{0}, count{0};
 
     while (!fin.eof()){
         fin >> num;
