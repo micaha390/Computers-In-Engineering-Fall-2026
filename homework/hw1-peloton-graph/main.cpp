@@ -25,6 +25,9 @@ int main() {
     string temp; //store read lines from the data file before storing it in values
     vector<int> values{}; //store the data to be written to the .svg file
     bool endOfData = false; //flag to stop reading the file
+    double mean{}, stdDeviation{}; //stores the mean and standard deviation of the data
+    int min{numeric_limits<int>::max()}, max{}; //stores the min and max of the data,
+                                                //min is initialized to the largest value for an int
 
     while (!fin.eof()) { //reads from the input file as long as there is still data in the file
         fin >> temp;
@@ -54,14 +57,29 @@ int main() {
         }
     }
 
-    int tempval{};
-    for (auto data:values) {
-        cout << data << endl;
-        tempval++;
-        cout << tempval << endl;
+    for (auto value : values) { //loops through the values
+        mean += value; //sums all of the values
+        if (value > max) {
+            max = value; //sets the max to the largest found value
+        }
+        if (value < min) {
+            min = value; //sets the min to the smallest found value
+        }
     }
 
-    cout << values.size() << endl;
+    mean = round(mean / values.size() * 10) / 10; //calculates the mean and rounds to 1 decimal place
+
+    for (auto value : values) {
+        stdDeviation += pow((value - mean), 2); //sums the squares of value - mean
+    }
+
+    stdDeviation = round(sqrt(stdDeviation / values.size()) * 10) / 10; //calculates the standard deviation
+                                                                           //and rounds to one decimal place
+
+    cout << mean << endl;
+    cout << min << endl;
+    cout << max << endl;
+    cout << stdDeviation << endl;
 
     return 0;
 }
