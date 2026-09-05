@@ -23,7 +23,8 @@ int main() {
     //ifstream fin("ride_data5.txt");
 
     string temp;
-    vector<int> values{};
+    vector<double> values{};
+    bool endOfData = false;
 
     while (!fin.eof()) {
         fin >> temp;
@@ -32,23 +33,32 @@ int main() {
             temp.erase(0, 1);
             int findSeperator = temp.find(',');
             temp.erase(findSeperator, 1);
-            cout << temp << endl;
             while (temp.back() != ']' && !fin.eof()) {
                 getline(fin, temp, ',');
                 temp.erase(0, 1);
                 if (temp.back() == ']') {
-                    cout << "TEST" << endl;
+                    cout << "!!!!" << endl;
                     temp.pop_back();
-                    cout << temp << endl;
+                    values.push_back(stod(temp));
+                    endOfData = true;
                     break;
                 }
-                cout << temp << endl;
+                values.push_back(stod(temp));
             }
         }
+        if (endOfData) {
+            break;
+        }
+    }
+    int tempval{};
+    for (auto data:values) {
+        cout << data << endl;
+        tempval++;
+        cout << tempval << endl;
     }
 
-
     cout << "Hello, World!" << endl;
+    cout << values.size() << endl;
 
     return 0;
 }
