@@ -27,15 +27,17 @@ int main() {
 
     while (!fin.eof()) {
         fin >> temp;
+        fin >> temp;
         if (temp[0] == '[') {
-          while (temp.back() != ']' && !fin.eof()) {
-              getline(fin, temp, ',');
-              if (temp.back() == ']') {
-                  cout << "TEST" << endl;
-                  temp.pop_back();
-              }
-              cout << temp << endl;
-          }
+            std::cout << "TESTTEST";
+            while (temp.back() != ']' && !fin.eof()) {
+                getline(fin, temp, ',');
+                if (temp.back() == ']') {
+                    cout << "TEST" << endl;
+                    temp.pop_back();
+                }
+                cout << temp << endl;
+            }
         }
     }
 
