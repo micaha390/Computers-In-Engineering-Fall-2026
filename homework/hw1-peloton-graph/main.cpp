@@ -29,12 +29,18 @@ int main() {
         fin >> temp;
         fin >> temp;
         if (temp[0] == '[') {
-            std::cout << "TESTTEST";
+            temp.erase(0, 1);
+            int findSeperator = temp.find(',');
+            temp.erase(findSeperator, 1);
+            cout << temp << endl;
             while (temp.back() != ']' && !fin.eof()) {
                 getline(fin, temp, ',');
+                temp.erase(0, 1);
                 if (temp.back() == ']') {
                     cout << "TEST" << endl;
                     temp.pop_back();
+                    cout << temp << endl;
+                    break;
                 }
                 cout << temp << endl;
             }
