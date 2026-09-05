@@ -27,8 +27,16 @@ int main() {
 
     while (!fin.eof()) {
         fin >> temp;
-        //getline(fin, temp, ',');
-        cout << temp << "!!!!" << endl;
+        if (temp[0] == '[') {
+          while (temp.back() != ']' && !fin.eof()) {
+              getline(fin, temp, ',');
+              if (temp.back() == ']') {
+                  cout << "TEST" << endl;
+                  temp.pop_back();
+              }
+              cout << temp << endl;
+          }
+        }
     }
 
 
