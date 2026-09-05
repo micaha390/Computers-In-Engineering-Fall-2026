@@ -10,7 +10,8 @@
             60,20
             80,80
             100,60
-            120,150"/>
+            120,150
+            140,100"/>
     <text x="0" y="20" font-family="Verdana" font-size="16" fill="blue">Hello!</text>
 </svg>
 

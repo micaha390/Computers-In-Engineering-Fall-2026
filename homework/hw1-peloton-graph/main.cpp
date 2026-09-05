@@ -22,6 +22,16 @@ int main() {
     //ifstream fin("ride_data4.txt");
     //ifstream fin("ride_data5.txt");
 
+    string temp;
+    vector<int> values{};
+
+    while (!fin.eof()) {
+        fin >> temp;
+        //getline(fin, temp, ',');
+        cout << temp << "!!!!" << endl;
+    }
+
+
     cout << "Hello, World!" << endl;
 
     return 0;
