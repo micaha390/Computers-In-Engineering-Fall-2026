@@ -13,11 +13,56 @@
 
 using namespace std;
 
-void printSVGGraph(vector<int> data, double mean, double stdDev, double min, double max) {
+//takes a vector of ints and returns the mean, rounded to 1 decimal place
+double calculateMean(vector<int> data) {
+    double mean{};
+    for (auto i: data) {
+        mean += i;
+    }
+    mean = round(mean / data.size() * 10) / 10;
+    return mean;
+}
+
+//takes a vector of ints and a mean, and returns the standard deviation
+double calculateStdDev(vector<int> data, double mean) {
+    double stdDev{};
+
+    for (auto i : data) {
+        stdDev += pow((i - mean), 2);
+    }
+
+    stdDev = round(sqrt(stdDev / data.size()) * 10) / 10;
+
+    return stdDev;
+}
+
+//takes a vector of ints and returns the max value
+int calculateMax(vector<int> data) {
+    int max{};
+    for (auto i: data) {
+        if (i > max) {
+            max = i;
+        }
+    }
+    return max;
+}
+
+//takes a vector of ints and returns the min value
+int calculateMin(vector<int> data) {
+    int min{numeric_limits<int>::max()};
+    for (auto i: data) {
+        if (i < min) {
+            min = i;
+        }
+    }
+    return min;
+}
+
+void printSVGGraph(vector<int> data, double mean, double stdDev, int min, int max) {
     ofstream fout("test_file.svg"); //opens the ofstream
 
     //stores the size of the image and the margins
-    const int SVG_WIDTH{1000}, SVG_HEIGHT{1000}, SVG_TOP{40}, SVG_BOTTOM{600}, SVG_LEFT{500}, SVG_RIGHT{40};
+    const int SVG_WIDTH{1000}, SVG_HEIGHT{500}, SVG_TOP{60}, SVG_BOTTOM{40}, SVG_LEFT{40}, SVG_RIGHT{40};
     const string GRAPH_COLOR{"#0074d9"}; //selects the color for the graph
 
     //sets the X position of the mean, std dev, min, and max,
@@ -31,7 +76,7 @@ void printSVGGraph(vector<int> data, double mean, double stdDev, double min, dou
     const double GRAPH_STEP_X = (SVG_WIDTH - SVG_LEFT - SVG_RIGHT) / static_cast<double>(data.size());
     //stretches the Y values so the lowest data point will always be at the bottom line,
     //and the highest data point at the top of the graph
-    const double GRAPH_STEP_Y = (SVG_HEIGHT - SVG_BOTTOM - SVG_TOP) / (max - min);
+    const double GRAPH_STEP_Y = static_cast<double>(SVG_HEIGHT - SVG_BOTTOM - SVG_TOP) / (max - min);
 
     //takes the number of data points as the total time in seconds and converts to hours, rounding to 2 decimal places
     const double RIDE_TIME = round((data.size() / 60.0) * 100) / 100 ;
@@ -97,17 +142,17 @@ void printSVGGraph(vector<int> data, double mean, double stdDev, double min, dou
 int main() {
 
     // Only uncomment one ifstream command at a time
-    //ifstream fin("ride_data.txt");
-    ifstream fin("ride_data2.txt");
-    //ifstream fin("ride_data3.txt");
-    //ifstream fin("ride_data4.txt");
-    //ifstream fin("ride_data5.txt");
+    // ifstream fin("ride_data.txt");
+    // ifstream fin("ride_data2.txt");
+    // ifstream fin("ride_data3.txt");
+    // ifstream fin("ride_data4.txt");
+    ifstream fin("ride_data5.txt");
 
     string temp; //store read lines from the data file before storing it in values
     vector<int> values{}; //store the data to be written to the .svg file
     bool endOfData = false; //flag to stop reading the file
     double mean{}, stdDeviation{}; //stores the mean and standard deviation of the data
-    double min{numeric_limits<int>::max()}, max{}; //stores the min and max of the data,
+    int min{}, max{}; //stores the min and max of the data,
                                                 //min is initialized to the largest value for an int
 
 
@@ -139,24 +184,10 @@ int main() {
         }
     }
 
-    for (auto value : values) { //loops through the values
-        mean += value; //sums all of the values
-        if (value > max) {
-            max = value; //sets the max to the largest found value
-        }
-        if (value < min) {
-            min = value; //sets the min to the smallest found value
-        }
-    }
-
-    mean = round(mean / values.size() * 10) / 10; //calculates the mean and rounds to 1 decimal place
-
-    for (auto value : values) {
-        stdDeviation += pow((value - mean), 2); //sums the squares of value - mean
-    }
-
-    stdDeviation = round(sqrt(stdDeviation / values.size()) * 10) / 10; //calculates the standard deviation
-                                                                           //and rounds to one decimal place
+    mean = calculateMean(values);
+    stdDeviation = calculateStdDev(values, mean);
+    max = calculateMax(values);
+    min = calculateMin(values);
 
     printSVGGraph(values, mean, stdDeviation, min, max);
 
