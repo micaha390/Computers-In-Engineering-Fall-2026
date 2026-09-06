@@ -78,8 +78,9 @@ int calculateMin(vector<int> data) {
 // Input: An open ifstream object that can read from the file you want to pull data from
 // Output: A vector of ints storing the data read from the file
 vector<int> readData(ifstream &fin) {
-    vector<int> data;
+    vector<int> data; //return variable
     string temp; //store read lines from the data file before storing it in values
+
     fin >> temp;
     fin >> temp; //gets the first 2 inputs to skip the first '['
 
@@ -87,22 +88,15 @@ vector<int> readData(ifstream &fin) {
         fin >> temp;
     }
     temp.erase(0, 1); //removes the '[' from the temp variable
-    cout << temp << endl;
+
     while (temp.back() != ']' && !fin.eof()) { //reads from the input file as long as there is still data in the file
-        //int findSeperator = temp.find(','); //finds the comma to remove it from the temp variable
-        //temp.erase(findSeperator, 1); //removes the comma from the temp variable
-        data.push_back(stoi(temp)); //stores the first data point
-        /* reads from the file until the ifstream reaches the closing ']' of the data we are reading or the end of
-        the file is reached */
+        data.push_back(stoi(temp)); //stores the data point
         getline(fin, temp, ','); //gets data from the file that is separated by a comma
-        cout << temp << endl;
         temp.erase(0, 1); //removes the space before saving the data to values
-        cout << temp << endl;
     }
 
-    temp.pop_back();
-    data.push_back(stoi(temp));
-    cout << data.size() << endl;
+    temp.pop_back();  //removes the final ']'
+    data.push_back(stoi(temp)); //adds the final data point to the vector
 
     fin.close();
 
@@ -207,7 +201,6 @@ int main() {
     int min{}, max{};
 
     values = readData(fin);
-
     mean = calculateMean(values);
     stdDeviation = calculateStdDev(values, mean);
     max = calculateMax(values);
