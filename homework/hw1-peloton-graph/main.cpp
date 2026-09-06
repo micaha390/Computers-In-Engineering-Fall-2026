@@ -22,6 +22,25 @@ void printSVGGraph() {
     //writes the svg file
     fout << R"(<svg version="1.1" width=")" << svgWidth << R"(" height=")" << svgHeight << "\" ";
     fout << R"(xmlns="http://www.w3.org/2000/svg">)"<< endl;
+    fout << "\t" << R"(<line x1="60" x2="60" y1="80" y2="393" stroke="#0074d9" stroke-width="3"/>)" << endl;
+    fout << "\t" << R"(<line x1="60" x2="500" y1="393" y2="393" stroke="#0074d9" stroke-width="3"/>)" << endl;
+    fout << "\t" << "<polyline" << endl;
+    fout << "\t\t" << R"(fill="none")" << endl;
+    fout << "\t\t" << R"(stroke="#0074d9")" << endl;
+    fout << "\t\t" << R"(stroke-width="3")" << endl;
+    fout << "\t\t" << R"(points=")" << endl;
+    fout << "\t\t\t" << "80,80" << endl;
+    fout << "\t\t\t" << "80,80" << endl;
+    fout << "\t\t\t" << "80,80" << endl;
+    fout << "\t\t\t" << "80,80/>" << endl;
+    fout << "\t" << R"(<text x="0" y="20" font-family="Verdana" font-size="12" fill="blue">mean = 260.1</text>)" << endl;
+    fout << "\t" << R"(<text x="0" y="40" font-family="Verdana" font-size="12" fill="blue">std dev = 52.7</text>)" << endl;
+    fout << "\t" << R"(<text x="0" y="75" font-family="Verdana" font-size="12" fill="blue">388.0</text>)" << endl;
+    fout << "\t" << R"(<text x="0" y="393" font-family="Verdana" font-size="12" fill="blue">75.0</text>)" << endl;
+    fout << "\t" << R"(<text x="45" y="408" font-family="Verdana" font-size="12" fill="blue">0.0</text>)" << endl;
+    fout << "\t" << R"(<text x="480" y="408" font-family="Verdana" font-size="12" fill="blue">60.0</text>)" << endl;
+    fout << "</svg>";
+
 
     fout.close(); //closes the ofstream
 }
