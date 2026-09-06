@@ -13,17 +13,26 @@
 
 using namespace std;
 
-void printSVGGraph() {
+void printSVGGraph(double mean, double stdDev, double min, double max) {
     ofstream fout("test_file.svg"); //opens the ofstream
 
-    const int svgWidth{1000}, svgHeight{500}, svgTop{20}, svgBottom{60}, svgLeft{80}, svgRight{50};
+    const int SVG_WIDTH{1000}, SVG_HEIGHT{500}, SVG_TOP{40}, SVG_BOTTOM{60}, SVG_LEFT{40}, SVG_RIGHT{40};
+    const string GRAPH_COLOR{"#0074d9"};
+
     //stores the size of the image and the margins
 
     //writes the svg file
-    fout << R"(<svg version="1.1" width=")" << svgWidth << R"(" height=")" << svgHeight << "\" ";
+    fout << R"(<svg version="1.1" width=")" << SVG_WIDTH << R"(" height=")" << SVG_HEIGHT << "\" ";
     fout << R"(xmlns="http://www.w3.org/2000/svg">)"<< endl;
-    fout << "\t" << R"(<line x1="60" x2="60" y1="80" y2="393" stroke="#0074d9" stroke-width="3"/>)" << endl;
-    fout << "\t" << R"(<line x1="60" x2="500" y1="393" y2="393" stroke="#0074d9" stroke-width="3"/>)" << endl;
+
+    fout << "\t" << R"(<line x1=")" << SVG_LEFT << R"(" x2=")" << SVG_LEFT;
+    fout << R"(" y1=")" << SVG_TOP << R"(" y2=")" << SVG_HEIGHT - SVG_BOTTOM << R"(" stroke=")";
+    fout << GRAPH_COLOR << R"(" stroke-width="3"/>)" << endl;
+
+    fout << "\t" << R"(<line x1=")" << SVG_LEFT << R"(" x2=")" << SVG_WIDTH - SVG_RIGHT;
+    fout << R"(" y1=")" << SVG_HEIGHT - SVG_BOTTOM << R"(" y2=")" << SVG_HEIGHT - SVG_BOTTOM << R"(" stroke=")";
+    fout << GRAPH_COLOR << R"(" stroke-width="3"/>)" << endl;
+
     fout << "\t" << "<polyline" << endl;
     fout << "\t\t" << R"(fill="none")" << endl;
     fout << "\t\t" << R"(stroke="#0074d9")" << endl;
@@ -32,13 +41,26 @@ void printSVGGraph() {
     fout << "\t\t\t" << "80,80" << endl;
     fout << "\t\t\t" << "80,80" << endl;
     fout << "\t\t\t" << "80,80" << endl;
-    fout << "\t\t\t" << "80,80/>" << endl;
-    fout << "\t" << R"(<text x="0" y="20" font-family="Verdana" font-size="12" fill="blue">mean = 260.1</text>)" << endl;
-    fout << "\t" << R"(<text x="0" y="40" font-family="Verdana" font-size="12" fill="blue">std dev = 52.7</text>)" << endl;
-    fout << "\t" << R"(<text x="0" y="75" font-family="Verdana" font-size="12" fill="blue">388.0</text>)" << endl;
-    fout << "\t" << R"(<text x="0" y="393" font-family="Verdana" font-size="12" fill="blue">75.0</text>)" << endl;
-    fout << "\t" << R"(<text x="45" y="408" font-family="Verdana" font-size="12" fill="blue">0.0</text>)" << endl;
-    fout << "\t" << R"(<text x="480" y="408" font-family="Verdana" font-size="12" fill="blue">60.0</text>)" << endl;
+    fout << "\t\t\t" << R"(80,80"/>)" << endl;
+
+    fout << "\t" << R"(<text x="5" y="10" font-family="Verdana" font-size="12")";
+    fout << R"( fill=")" << GRAPH_COLOR << R"(">mean = )" << mean << "</text>)" << endl;
+
+    fout << "\t" << R"(<text x="5" y="25" font-family="Verdana" font-size="12")";
+    fout << R"( fill=")" << GRAPH_COLOR << R"(">std dev = )" << stdDev << "</text>)" << endl;
+
+    fout << "\t" << R"(<text x="5" y=")" << SVG_TOP + 10 << R"(" font-family="Verdana" font-size="12")";
+    fout << R"( fill=")" << GRAPH_COLOR << R"(">)" << max << "</text>)" << endl;
+
+    fout << "\t" << R"(<text x="5" y=")" << SVG_HEIGHT - SVG_BOTTOM << R"(" font-family="Verdana" font-size="12")";
+    fout << R"( fill=")" << GRAPH_COLOR << R"(">)" << min << "</text>)" << endl;
+
+    fout << "\t" << R"(<text x=")" << SVG_LEFT << R"(" y=")" << SVG_HEIGHT - SVG_BOTTOM + 15;
+    fout << R"(" font-family="Verdana" font-size="12" fill=")" << GRAPH_COLOR << R"(">)" << 0 << "</text>)" << endl;
+
+    fout << "\t" << R"(<text x=")" << SVG_WIDTH - SVG_RIGHT - 10 << R"(" y=")" << SVG_HEIGHT - SVG_BOTTOM + 15;
+    fout << R"(" font-family="Verdana" font-size="12" fill=")" << GRAPH_COLOR << R"(">)" << 60 << "</text>)" << endl;
+
     fout << "</svg>";
 
 
@@ -58,7 +80,7 @@ int main() {
     vector<int> values{}; //store the data to be written to the .svg file
     bool endOfData = false; //flag to stop reading the file
     double mean{}, stdDeviation{}; //stores the mean and standard deviation of the data
-    int min{numeric_limits<int>::max()}, max{}; //stores the min and max of the data,
+    double min{numeric_limits<int>::max()}, max{}; //stores the min and max of the data,
                                                 //min is initialized to the largest value for an int
 
 
@@ -114,7 +136,7 @@ int main() {
     cout << max << endl;
     cout << stdDeviation << endl;
 
-    printSVGGraph();
+    printSVGGraph(mean, stdDeviation, min, max);
 
     return 0;
 }
