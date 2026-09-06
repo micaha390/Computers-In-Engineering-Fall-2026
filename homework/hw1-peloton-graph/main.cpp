@@ -39,25 +39,67 @@ double calculateStdDev(vector<int> data, double mean) {
 //takes a vector of ints and returns the max value
 int calculateMax(vector<int> data) {
     int max{};
+
     for (auto i: data) {
         if (i > max) {
             max = i;
         }
     }
+
     return max;
 }
 
 //takes a vector of ints and returns the min value
 int calculateMin(vector<int> data) {
     int min{numeric_limits<int>::max()};
+
     for (auto i: data) {
         if (i < min) {
             min = i;
         }
     }
+
     return min;
 }
 
+//takes an ifstream object for a properly formatted .txt file and returns a vector of ints
+vector<int> readData(ifstream &fin) {
+    vector<int> data;
+    string temp; //store read lines from the data file before storing it in values
+    bool endOfData = false; //flag to stop reading the file
+
+    while (!fin.eof()) { //reads from the input file as long as there is still data in the file
+        fin >> temp;
+        fin >> temp; //gets the first 2 lines to skip the first '['
+        if (temp[0] == '[') { //starts saving data to values once the ifstream object gets to the second '['
+            temp.erase(0, 1); //removes the '[' from the temp variable
+            int findSeperator = temp.find(','); //finds the comma to remove it from the temp variable
+            temp.erase(findSeperator, 1); //removes the comma from the temp variable
+            data.push_back(stoi(temp)); //stores the first data point
+            /* reads from the file until the ifstream reaches the closing ']' of the data we are reading or the end of
+            the file is reached */
+            while (temp.back() != ']' && !fin.eof()) {
+                getline(fin, temp, ','); //gets data from the file that is separated by a comma
+                temp.erase(0, 1); //removes the comma before saving the data to values
+                if (temp.back() == ']') { //checks if there is a closing ']'
+                    temp.pop_back(); //removes the closing ']'
+                    data.push_back(stoi(temp)); //adds the data to values
+                    endOfData = true; //changes the flag to indicate the end of the data was reached
+                    break; //exits the while loop because the end of the data was reached
+                }
+                data.push_back(stoi(temp)); //adds the data point to values
+            }
+        }
+        if (endOfData) { //if the end of data was reached, closes the ifstream and exits the while loop
+            fin.close();
+            break;
+        }
+    }
+
+    return data;
+}
+
+//takes the data and calculated values for the data and prints a .svg file to display a graph
 void printSVGGraph(vector<int> data, double mean, double stdDev, int min, int max) {
     ofstream fout("test_file.svg"); //opens the ofstream
 
@@ -140,49 +182,18 @@ void printSVGGraph(vector<int> data, double mean, double stdDev, int min, int ma
 }
 
 int main() {
-
     // Only uncomment one ifstream command at a time
     // ifstream fin("ride_data.txt");
     // ifstream fin("ride_data2.txt");
-    // ifstream fin("ride_data3.txt");
+    ifstream fin("ride_data3.txt");
     // ifstream fin("ride_data4.txt");
-    ifstream fin("ride_data5.txt");
+    // ifstream fin("ride_data5.txt");
 
-    string temp; //store read lines from the data file before storing it in values
     vector<int> values{}; //store the data to be written to the .svg file
-    bool endOfData = false; //flag to stop reading the file
     double mean{}, stdDeviation{}; //stores the mean and standard deviation of the data
-    int min{}, max{}; //stores the min and max of the data,
-                                                //min is initialized to the largest value for an int
+    int min{}, max{}; //stores the min and max of the data
 
-
-    while (!fin.eof()) { //reads from the input file as long as there is still data in the file
-        fin >> temp;
-        fin >> temp; //gets the first 2 lines to skip the first '['
-        if (temp[0] == '[') { //starts saving data to values once the ifstream object gets to the second '['
-            temp.erase(0, 1); //removes the '[' from the temp variable
-            int findSeperator = temp.find(','); //finds the comma to remove it from the temp variable
-            temp.erase(findSeperator, 1); //removes the comma from the temp variable
-            values.push_back(stoi(temp)); //stores the first data point
-            /* reads from the file until the ifstream reaches the closing ']' of the data we are reading or the end of
-            the file is reached */
-            while (temp.back() != ']' && !fin.eof()) {
-                getline(fin, temp, ','); //gets data from the file that is separated by a comma
-                temp.erase(0, 1); //removes the comma before saving the data to values
-                if (temp.back() == ']') { //checks if there is a closing ']'
-                    temp.pop_back(); //removes the closing ']'
-                    values.push_back(stoi(temp)); //adds the data to values
-                    endOfData = true; //changes the flag to indicate the end of the data was reached
-                    break; //exits the while loop because the end of the data was reached
-                }
-                values.push_back(stoi(temp)); //adds the data point to values
-            }
-        }
-        if (endOfData) { //if the end of data was reached, closes the ifstream and exits the while loop
-            fin.close();
-            break;
-        }
-    }
+    values = readData(fin);
 
     mean = calculateMean(values);
     stdDeviation = calculateStdDev(values, mean);
