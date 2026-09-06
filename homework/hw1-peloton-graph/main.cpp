@@ -17,8 +17,15 @@ void printSVGGraph(vector<int> data, double mean, double stdDev, double min, dou
     ofstream fout("test_file.svg"); //opens the ofstream
 
     //stores the size of the image and the margins
-    const int SVG_WIDTH{1000}, SVG_HEIGHT{1000}, SVG_TOP{40}, SVG_BOTTOM{60}, SVG_LEFT{40}, SVG_RIGHT{40};
+    const int SVG_WIDTH{1000}, SVG_HEIGHT{1000}, SVG_TOP{40}, SVG_BOTTOM{600}, SVG_LEFT{500}, SVG_RIGHT{40};
     const string GRAPH_COLOR{"#0074d9"}; //selects the color for the graph
+
+    //sets the X position of the mean, std dev, min, and max,
+    //and ensures they don't go off the screen if the margins are small
+    int textXPos = SVG_LEFT - 35;
+    if (textXPos < 0) {
+        textXPos = 0;
+    }
 
     //sets the X value that each data point will increase by so the graph will fill the screen
     const double GRAPH_STEP_X = (SVG_WIDTH - SVG_LEFT - SVG_RIGHT) / static_cast<double>(data.size());
@@ -62,16 +69,16 @@ void printSVGGraph(vector<int> data, double mean, double stdDev, double min, dou
 
     fout << "\t\t\"/>" << endl;
 
-    fout << "\t" << R"(<text x="5" y="10" font-family="Verdana" font-size="12")";
+    fout << "\t" << R"(<text x=")" << textXPos << R"(" y="10" font-family="Verdana" font-size="12")";
     fout << R"( fill=")" << GRAPH_COLOR << R"(">mean = )" << mean << "</text>)" << endl;
 
-    fout << "\t" << R"(<text x="5" y="25" font-family="Verdana" font-size="12")";
+    fout << "\t" << R"(<text x=")" << textXPos << R"(" y="25" font-family="Verdana" font-size="12")";
     fout << R"( fill=")" << GRAPH_COLOR << R"(">std dev = )" << stdDev << "</text>)" << endl;
 
-    fout << "\t" << R"(<text x="5" y=")" << SVG_TOP + 10 << R"(" font-family="Verdana" font-size="12")";
+    fout << "\t" << R"(<text x=")" << textXPos << R"(" y=")" << SVG_TOP + 10 << R"(" font-family="Verdana" font-size="12")";
     fout << R"( fill=")" << GRAPH_COLOR << R"(">)" << max << "</text>)" << endl;
 
-    fout << "\t" << R"(<text x="5" y=")" << SVG_HEIGHT - SVG_BOTTOM << R"(" font-family="Verdana" font-size="12")";
+    fout << "\t" << R"(<text x=")" << textXPos << R"(" y=")" << SVG_HEIGHT - SVG_BOTTOM << R"(" font-family="Verdana" font-size="12")";
     fout << R"( fill=")" << GRAPH_COLOR << R"(">)" << min << "</text>)" << endl;
 
     fout << "\t" << R"(<text x=")" << SVG_LEFT << R"(" y=")" << SVG_HEIGHT - SVG_BOTTOM + 15;
