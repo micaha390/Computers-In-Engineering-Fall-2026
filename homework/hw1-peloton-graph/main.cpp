@@ -20,7 +20,7 @@ void printSVGGraph(vector<int> data, double mean, double stdDev, double min, dou
     const int SVG_WIDTH{1000}, SVG_HEIGHT{500}, SVG_TOP{40}, SVG_BOTTOM{60}, SVG_LEFT{40}, SVG_RIGHT{40};
     const string GRAPH_COLOR{"#0074d9"}; //selects the color for the graph
     const double GRAPH_STEP_X = (SVG_WIDTH - SVG_LEFT - SVG_RIGHT) / static_cast<double>(data.size());
-    const double GRAPH_STEP_Y = (SVG_HEIGHT - SVG_TOP - SVG_BOTTOM) / (max - min);
+    const double GRAPH_STEP_Y = (SVG_HEIGHT - SVG_BOTTOM - SVG_TOP) / (max - min);
     int count{0};
 
     //writes the svg file
@@ -43,7 +43,7 @@ void printSVGGraph(vector<int> data, double mean, double stdDev, double min, dou
 
     for (auto i: data) {
         fout << "\t\t\t" << SVG_RIGHT + (GRAPH_STEP_X * count) << ",";
-        fout << SVG_HEIGHT + SVG_BOTTOM - (GRAPH_STEP_Y * i) - 25 << endl;
+        fout << SVG_HEIGHT - SVG_BOTTOM - ((i - min) * GRAPH_STEP_Y) << endl;
         count++;
     }
 
@@ -76,11 +76,11 @@ void printSVGGraph(vector<int> data, double mean, double stdDev, double min, dou
 int main() {
 
     // Only uncomment one ifstream command at a time
-    //ifstream fin("ride_data.txt");
+    ifstream fin("ride_data.txt");
     //ifstream fin("ride_data2.txt");
     //ifstream fin("ride_data3.txt");
     //ifstream fin("ride_data4.txt");
-    ifstream fin("ride_data5.txt");
+    //ifstream fin("ride_data5.txt");
 
     string temp; //store read lines from the data file before storing it in values
     vector<int> values{}; //store the data to be written to the .svg file
