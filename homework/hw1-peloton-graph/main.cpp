@@ -16,10 +16,13 @@ using namespace std;
 //takes a vector of ints and returns the mean, rounded to 1 decimal place
 double calculateMean(vector<int> data) {
     double mean{};
+
     for (auto i: data) {
         mean += i;
     }
+
     mean = round(mean / data.size() * 10) / 10;
+
     return mean;
 }
 
@@ -67,10 +70,10 @@ vector<int> readData(ifstream &fin) {
     vector<int> data;
     string temp; //store read lines from the data file before storing it in values
     bool endOfData = false; //flag to stop reading the file
+    fin >> temp;
+    fin >> temp; //gets the first 2 inputs to skip the first '['
 
     while (!fin.eof()) { //reads from the input file as long as there is still data in the file
-        fin >> temp;
-        fin >> temp; //gets the first 2 lines to skip the first '['
         if (temp[0] == '[') { //starts saving data to values once the ifstream object gets to the second '['
             temp.erase(0, 1); //removes the '[' from the temp variable
             int findSeperator = temp.find(','); //finds the comma to remove it from the temp variable
@@ -94,6 +97,7 @@ vector<int> readData(ifstream &fin) {
             fin.close();
             break;
         }
+        fin >> temp; //gets the next input from the file
     }
 
     return data;
@@ -183,9 +187,9 @@ void printSVGGraph(vector<int> data, double mean, double stdDev, int min, int ma
 
 int main() {
     // Only uncomment one ifstream command at a time
-    // ifstream fin("ride_data.txt");
+    ifstream fin("ride_data.txt");
     // ifstream fin("ride_data2.txt");
-    ifstream fin("ride_data3.txt");
+    // ifstream fin("ride_data3.txt");
     // ifstream fin("ride_data4.txt");
     // ifstream fin("ride_data5.txt");
 
