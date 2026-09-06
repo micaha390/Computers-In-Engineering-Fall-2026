@@ -1,6 +1,6 @@
 <svg version="1.1" width="600" height="600" xmlns="http://www.w3.org/2000/svg">
-    <line x1="55" x2="55" y1="80" y2="379" stroke="#0074d9" stroke-width="3"/>
-    <line x1="54" x2="500" y1="378" y2="378" stroke="#0074d9" stroke-width="3"/>
+    <line x1="60" x2="60" y1="80" y2="393" stroke="#0074d9" stroke-width="3"/>
+    <line x1="60" x2="500" y1="393" y2="393" stroke="#0074d9" stroke-width="3"/>
     <polyline
         fill="none"
         stroke="#0074d9"
@@ -10,13 +10,11 @@
             100,80
             120,150
             140,373"/>
-
     <text x="0" y="20" font-family="Verdana" font-size="12" fill="blue">mean = 260.1</text>
     <text x="0" y="40" font-family="Verdana" font-size="12" fill="blue">std dev = 52.7</text>
     <text x="0" y="75" font-family="Verdana" font-size="12" fill="blue">388.0</text>
-    <text x="0" y="378" font-family="Verdana" font-size="12" fill="blue">75.0</text>
-    <text x="45" y="393" font-family="Verdana" font-size="12" fill="blue">0.0</text>
-    <text x="480" y="393" font-family="Verdana" font-size="12" fill="blue">60.0</text>
-
+    <text x="0" y="393" font-family="Verdana" font-size="12" fill="blue">75.0</text>
+    <text x="45" y="408" font-family="Verdana" font-size="12" fill="blue">0.0</text>
+    <text x="480" y="408" font-family="Verdana" font-size="12" fill="blue">60.0</text>
 </svg>
 

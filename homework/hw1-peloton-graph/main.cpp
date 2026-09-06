@@ -13,6 +13,19 @@
 
 using namespace std;
 
+void printSVGGraph() {
+    ofstream fout("test_file.svg"); //opens the ofstream
+
+    const int svgWidth{1000}, svgHeight{500}, svgTop{20}, svgBottom{60}, svgLeft{80}, svgRight{50};
+    //stores the size of the image and the margins
+
+    //writes the svg file
+    fout << R"(<svg version="1.1" width=")" << svgWidth << R"(" height=")" << svgHeight << "\" ";
+    fout << R"(xmlns="http://www.w3.org/2000/svg">)"<< endl;
+
+    fout.close(); //closes the ofstream
+}
+
 int main() {
 
     // Only uncomment one ifstream command at a time
@@ -28,6 +41,7 @@ int main() {
     double mean{}, stdDeviation{}; //stores the mean and standard deviation of the data
     int min{numeric_limits<int>::max()}, max{}; //stores the min and max of the data,
                                                 //min is initialized to the largest value for an int
+
 
     while (!fin.eof()) { //reads from the input file as long as there is still data in the file
         fin >> temp;
@@ -80,6 +94,8 @@ int main() {
     cout << min << endl;
     cout << max << endl;
     cout << stdDeviation << endl;
+
+    printSVGGraph();
 
     return 0;
 }
