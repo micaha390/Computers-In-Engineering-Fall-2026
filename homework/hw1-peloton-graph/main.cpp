@@ -1,8 +1,9 @@
 //
 // Programmer: Micah Anderson
 // Date: 9/5/2026
-// Filename: Peloton Data Graphing Utility
-// Description: Takes a .txt fil
+// Filename: main.cpp
+// Description: This program takes a .txt file that contains a formatted list of data points, then makes a .svg file
+// that displays a graph of the data, along with the mean and standard deviation
 //
 
 #include <iostream>
@@ -13,7 +14,9 @@
 
 using namespace std;
 
-//takes a vector of ints and returns the mean, rounded to 1 decimal place
+// Function: Calculates the mean of a vector of ints
+// Input: A vector of ints
+// Output: The mean value of the vector of ints
 double calculateMean(vector<int> data) {
     double mean{};
 
@@ -26,7 +29,9 @@ double calculateMean(vector<int> data) {
     return mean;
 }
 
-//takes a vector of ints and a mean, and returns the standard deviation
+// Function: Calculates the standard deviation of a vector of ints
+// Input: A vector of ints and a double storing the mean value of the input vector
+// Output: The standard deviation of the vector of ints
 double calculateStdDev(vector<int> data, double mean) {
     double stdDev{};
 
@@ -39,7 +44,9 @@ double calculateStdDev(vector<int> data, double mean) {
     return stdDev;
 }
 
-//takes a vector of ints and returns the max value
+// Function: Returns the maximum value of a vector of ints
+// Input: A vector of ints
+// Output: The maximum value of the vector of ints
 int calculateMax(vector<int> data) {
     int max{};
 
@@ -52,7 +59,9 @@ int calculateMax(vector<int> data) {
     return max;
 }
 
-//takes a vector of ints and returns the min value
+// Function: Returns the minimum value of a vector of ints
+// Input: A vector of ints
+// Output: The minimum value of the vector of ints
 int calculateMin(vector<int> data) {
     int min{numeric_limits<int>::max()};
 
@@ -65,7 +74,9 @@ int calculateMin(vector<int> data) {
     return min;
 }
 
-//takes an ifstream object for a properly formatted .txt file and returns a vector of ints
+// Function: Retrieves data from a formatted .txt file
+// Input: An open ifstream object that can read from the file you want to pull data from
+// Output: A vector of ints storing the data read from the file
 vector<int> readData(ifstream &fin) {
     vector<int> data;
     string temp; //store read lines from the data file before storing it in values
@@ -73,7 +84,7 @@ vector<int> readData(ifstream &fin) {
     fin >> temp;
     fin >> temp; //gets the first 2 inputs to skip the first '['
 
-    while (!fin.eof()) { //reads from the input file as long as there is still data in the file
+    while (!endOfData && !fin.eof()) { //reads from the input file as long as there is still data in the file
         if (temp[0] == '[') { //starts saving data to values once the ifstream object gets to the second '['
             temp.erase(0, 1); //removes the '[' from the temp variable
             int findSeperator = temp.find(','); //finds the comma to remove it from the temp variable
@@ -81,38 +92,39 @@ vector<int> readData(ifstream &fin) {
             data.push_back(stoi(temp)); //stores the first data point
             /* reads from the file until the ifstream reaches the closing ']' of the data we are reading or the end of
             the file is reached */
-            while (temp.back() != ']' && !fin.eof()) {
+            while (temp.back() != ']' && !endOfData && !fin.eof()) {
                 getline(fin, temp, ','); //gets data from the file that is separated by a comma
-                temp.erase(0, 1); //removes the comma before saving the data to values
+                cout << temp << endl;
+                temp.erase(0, 1); //removes the space before saving the data to values
+                cout << temp << endl;
                 if (temp.back() == ']') { //checks if there is a closing ']'
                     temp.pop_back(); //removes the closing ']'
-                    data.push_back(stoi(temp)); //adds the data to values
                     endOfData = true; //changes the flag to indicate the end of the data was reached
-                    break; //exits the while loop because the end of the data was reached
                 }
                 data.push_back(stoi(temp)); //adds the data point to values
             }
         }
-        if (endOfData) { //if the end of data was reached, closes the ifstream and exits the while loop
-            fin.close();
-            break;
-        }
-        fin >> temp; //gets the next input from the file
+        fin >> temp;
     }
+
+    fin.close();
 
     return data;
 }
 
-//takes the data and calculated values for the data and prints a .svg file to display a graph
+// Function: Takes data and creates a graph using a .svg file displaying it
+// Input: A vector of ints containing the data to be displayed,
+//        as well as the mean, standard deviation, min, and max for the data
+// Output: A .svg file that creates a graph of the data
 void printSVGGraph(vector<int> data, double mean, double stdDev, int min, int max) {
-    ofstream fout("test_file.svg"); //opens the ofstream
+    ofstream fout("output_graph.svg");
 
     //stores the size of the image and the margins
     const int SVG_WIDTH{1000}, SVG_HEIGHT{500}, SVG_TOP{60}, SVG_BOTTOM{40}, SVG_LEFT{40}, SVG_RIGHT{40};
     const string GRAPH_COLOR{"#0074d9"}; //selects the color for the graph
 
     //sets the X position of the mean, std dev, min, and max,
-    //and ensures they don't go off the screen if the margins are small
+    //and ensures they don't go off the screen if the margins are smaller than 35
     int textXPos = SVG_LEFT - 35;
     if (textXPos < 0) {
         textXPos = 0;
@@ -182,20 +194,20 @@ void printSVGGraph(vector<int> data, double mean, double stdDev, int min, int ma
     fout << "</svg>";
 
 
-    fout.close(); //closes the ofstream
+    fout.close();
 }
 
 int main() {
     // Only uncomment one ifstream command at a time
-    ifstream fin("ride_data.txt");
+    // ifstream fin("ride_data.txt");
     // ifstream fin("ride_data2.txt");
     // ifstream fin("ride_data3.txt");
     // ifstream fin("ride_data4.txt");
-    // ifstream fin("ride_data5.txt");
+    ifstream fin("ride_data5.txt");
 
-    vector<int> values{}; //store the data to be written to the .svg file
-    double mean{}, stdDeviation{}; //stores the mean and standard deviation of the data
-    int min{}, max{}; //stores the min and max of the data
+    vector<int> values{}; // stores the data to be written to the .svg file
+    double mean{}, stdDeviation{};
+    int min{}, max{};
 
     values = readData(fin);
 
@@ -203,6 +215,8 @@ int main() {
     stdDeviation = calculateStdDev(values, mean);
     max = calculateMax(values);
     min = calculateMin(values);
+
+    cout << values.size() << endl;
 
     printSVGGraph(values, mean, stdDeviation, min, max);
 
