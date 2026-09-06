@@ -19,8 +19,18 @@ void printSVGGraph(vector<int> data, double mean, double stdDev, double min, dou
     //stores the size of the image and the margins
     const int SVG_WIDTH{1000}, SVG_HEIGHT{500}, SVG_TOP{40}, SVG_BOTTOM{60}, SVG_LEFT{40}, SVG_RIGHT{40};
     const string GRAPH_COLOR{"#0074d9"}; //selects the color for the graph
+
+    //sets the X value that each data point will increase by so the graph will fill the screen
     const double GRAPH_STEP_X = (SVG_WIDTH - SVG_LEFT - SVG_RIGHT) / static_cast<double>(data.size());
+    //stretches the Y values so the lowest data point will always be at the bottom line,
+    //and the highest data point at the top of the graph
     const double GRAPH_STEP_Y = (SVG_HEIGHT - SVG_BOTTOM - SVG_TOP) / (max - min);
+
+    //takes the number of data points as the total time in seconds and converts to hours, rounding to 2 decimal places
+    const double RIDE_TIME = round((data.size() / 60.0) * 100) / 100 ;
+
+    //initializes a counter to use in the for loop
+    //so we can iterate through the vector directly instead of using indices
     int count{0};
 
     //writes the svg file
@@ -41,6 +51,9 @@ void printSVGGraph(vector<int> data, double mean, double stdDev, double min, dou
     fout << "\t\t" << R"(stroke-width="3")" << endl;
     fout << "\t\t" << R"(points=")" << endl;
 
+    /* iterates through the data to create the graph. each data point moves to the right by a fraction of the graph
+     * that we calculated earlier so that the data fills the graph. then the Y data is shifted so all values start at 0
+     * and is also scaled to the graph */
     for (auto i: data) {
         fout << "\t\t\t" << SVG_RIGHT + (GRAPH_STEP_X * count) << ",";
         fout << SVG_HEIGHT - SVG_BOTTOM - ((i - min) * GRAPH_STEP_Y) << endl;
@@ -65,7 +78,8 @@ void printSVGGraph(vector<int> data, double mean, double stdDev, double min, dou
     fout << R"(" font-family="Verdana" font-size="12" fill=")" << GRAPH_COLOR << R"(">)" << 0 << "</text>)" << endl;
 
     fout << "\t" << R"(<text x=")" << SVG_WIDTH - SVG_RIGHT - 10 << R"(" y=")" << SVG_HEIGHT - SVG_BOTTOM + 15;
-    fout << R"(" font-family="Verdana" font-size="12" fill=")" << GRAPH_COLOR << R"(">)" << 60 << "</text>)" << endl;
+    fout << R"(" font-family="Verdana" font-size="12" fill=")" << GRAPH_COLOR << R"(">)";
+    fout << RIDE_TIME << "</text>)" << endl;
 
     fout << "</svg>";
 
@@ -76,8 +90,8 @@ void printSVGGraph(vector<int> data, double mean, double stdDev, double min, dou
 int main() {
 
     // Only uncomment one ifstream command at a time
-    ifstream fin("ride_data.txt");
-    //ifstream fin("ride_data2.txt");
+    //ifstream fin("ride_data.txt");
+    ifstream fin("ride_data2.txt");
     //ifstream fin("ride_data3.txt");
     //ifstream fin("ride_data4.txt");
     //ifstream fin("ride_data5.txt");
@@ -136,11 +150,6 @@ int main() {
 
     stdDeviation = round(sqrt(stdDeviation / values.size()) * 10) / 10; //calculates the standard deviation
                                                                            //and rounds to one decimal place
-
-    cout << mean << endl;
-    cout << min << endl;
-    cout << max << endl;
-    cout << stdDeviation << endl;
 
     printSVGGraph(values, mean, stdDeviation, min, max);
 
