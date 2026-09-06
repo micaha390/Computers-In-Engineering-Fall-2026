@@ -80,32 +80,29 @@ int calculateMin(vector<int> data) {
 vector<int> readData(ifstream &fin) {
     vector<int> data;
     string temp; //store read lines from the data file before storing it in values
-    bool endOfData = false; //flag to stop reading the file
     fin >> temp;
     fin >> temp; //gets the first 2 inputs to skip the first '['
 
-    while (!endOfData && !fin.eof()) { //reads from the input file as long as there is still data in the file
-        if (temp[0] == '[') { //starts saving data to values once the ifstream object gets to the second '['
-            temp.erase(0, 1); //removes the '[' from the temp variable
-            int findSeperator = temp.find(','); //finds the comma to remove it from the temp variable
-            temp.erase(findSeperator, 1); //removes the comma from the temp variable
-            data.push_back(stoi(temp)); //stores the first data point
-            /* reads from the file until the ifstream reaches the closing ']' of the data we are reading or the end of
-            the file is reached */
-            while (temp.back() != ']' && !endOfData && !fin.eof()) {
-                getline(fin, temp, ','); //gets data from the file that is separated by a comma
-                cout << temp << endl;
-                temp.erase(0, 1); //removes the space before saving the data to values
-                cout << temp << endl;
-                if (temp.back() == ']') { //checks if there is a closing ']'
-                    temp.pop_back(); //removes the closing ']'
-                    endOfData = true; //changes the flag to indicate the end of the data was reached
-                }
-                data.push_back(stoi(temp)); //adds the data point to values
-            }
-        }
+    while (temp[0] != '[') { //moves the ifstream object to the start of the data
         fin >> temp;
     }
+    temp.erase(0, 1); //removes the '[' from the temp variable
+    cout << temp << endl;
+    while (temp.back() != ']' && !fin.eof()) { //reads from the input file as long as there is still data in the file
+        //int findSeperator = temp.find(','); //finds the comma to remove it from the temp variable
+        //temp.erase(findSeperator, 1); //removes the comma from the temp variable
+        data.push_back(stoi(temp)); //stores the first data point
+        /* reads from the file until the ifstream reaches the closing ']' of the data we are reading or the end of
+        the file is reached */
+        getline(fin, temp, ','); //gets data from the file that is separated by a comma
+        cout << temp << endl;
+        temp.erase(0, 1); //removes the space before saving the data to values
+        cout << temp << endl;
+    }
+
+    temp.pop_back();
+    data.push_back(stoi(temp));
+    cout << data.size() << endl;
 
     fin.close();
 
@@ -215,8 +212,6 @@ int main() {
     stdDeviation = calculateStdDev(values, mean);
     max = calculateMax(values);
     min = calculateMin(values);
-
-    cout << values.size() << endl;
 
     printSVGGraph(values, mean, stdDeviation, min, max);
 
