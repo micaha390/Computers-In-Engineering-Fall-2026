@@ -17,7 +17,7 @@ void printSVGGraph(vector<int> data, double mean, double stdDev, double min, dou
     ofstream fout("test_file.svg"); //opens the ofstream
 
     //stores the size of the image and the margins
-    const int SVG_WIDTH{1000}, SVG_HEIGHT{500}, SVG_TOP{40}, SVG_BOTTOM{60}, SVG_LEFT{40}, SVG_RIGHT{40};
+    const int SVG_WIDTH{1000}, SVG_HEIGHT{1000}, SVG_TOP{40}, SVG_BOTTOM{60}, SVG_LEFT{40}, SVG_RIGHT{40};
     const string GRAPH_COLOR{"#0074d9"}; //selects the color for the graph
 
     //sets the X value that each data point will increase by so the graph will fill the screen
@@ -55,7 +55,7 @@ void printSVGGraph(vector<int> data, double mean, double stdDev, double min, dou
      * that we calculated earlier so that the data fills the graph. then the Y data is shifted so all values start at 0
      * and is also scaled to the graph */
     for (auto i: data) {
-        fout << "\t\t\t" << SVG_RIGHT + (GRAPH_STEP_X * count) << ",";
+        fout << "\t\t\t" << SVG_LEFT + (GRAPH_STEP_X * count) << ",";
         fout << SVG_HEIGHT - SVG_BOTTOM - ((i - min) * GRAPH_STEP_Y) << endl;
         count++;
     }
