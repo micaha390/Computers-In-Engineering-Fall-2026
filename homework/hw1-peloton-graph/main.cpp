@@ -15,10 +15,10 @@
 using namespace std;
 
 // Function: Calculates the mean of a vector of ints
-// Input: A vector of ints
-// Output: The mean value of the vector of ints
-double calculateMean(vector<int> data) {
-    double mean{};
+// Input: data - vector<int> - a vector containing all data points that are going to be graphed
+// Output: mean - double - the mean of the input data, rounded to 1 decimal place
+double calculateMean(const vector<int> &data) {
+    double mean{0.0};
 
     for (auto i: data) {
         mean += i;
@@ -30,10 +30,11 @@ double calculateMean(vector<int> data) {
 }
 
 // Function: Calculates the standard deviation of a vector of ints
-// Input: A vector of ints and a double storing the mean value of the input vector
-// Output: The standard deviation of the vector of ints
-double calculateStdDev(vector<int> data, double mean) {
-    double stdDev{};
+// Input: data - vector<int> - a vector containing all data points that are going to be graphed
+//        mean - double - a double containing the mean value of the data
+// Output: mean - double - the standard deviation of the input data, rounded to 1 decimal place
+double calculateStdDev(const vector<int> &data, const double mean) {
+    double stdDev{0.0};
 
     for (auto i : data) {
         stdDev += pow((i - mean), 2);
@@ -45,10 +46,10 @@ double calculateStdDev(vector<int> data, double mean) {
 }
 
 // Function: Returns the maximum value of a vector of ints
-// Input: A vector of ints
-// Output: The maximum value of the vector of ints
-int calculateMax(vector<int> data) {
-    int max{};
+// Input: data - vector<int> - a vector containing all data points that are going to be graphed
+// Output: max - int - the largest value contained in the input vector
+int calculateMax(const vector<int> &data) {
+    int max{0};
 
     for (auto i: data) {
         if (i > max) {
@@ -60,9 +61,9 @@ int calculateMax(vector<int> data) {
 }
 
 // Function: Returns the minimum value of a vector of ints
-// Input: A vector of ints
-// Output: The minimum value of the vector of ints
-int calculateMin(vector<int> data) {
+// Input: data - vector<int> - a vector containing all data points that are going to be graphed
+// Output: min - int - the smallest value contained in the input vector
+int calculateMin(const vector<int> &data) {
     int min{numeric_limits<int>::max()};
 
     for (auto i: data) {
@@ -75,8 +76,8 @@ int calculateMin(vector<int> data) {
 }
 
 // Function: Retrieves data from a formatted .txt file
-// Input: An open ifstream object that can read from the file you want to pull data from
-// Output: A vector of ints storing the data read from the file
+// Input: fin - ifstream - an ifstream object reading from the file containing the data that is going to be graphed
+// Output: data - vector<int> - the data that is going to be graphed
 vector<int> readData(ifstream &fin) {
     vector<int> data; //return variable
     string temp; //store read lines from the data file before storing it in values
@@ -104,14 +105,17 @@ vector<int> readData(ifstream &fin) {
 }
 
 // Function: Takes data and creates a graph using a .svg file displaying it
-// Input: A vector of ints containing the data to be displayed,
-//        as well as the mean, standard deviation, min, and max for the data
-// Output: A .svg file that creates a graph of the data
-void printSVGGraph(vector<int> data, double mean, double stdDev, int min, int max) {
+// Input: data - vector<int> - a vector containing all data points that are going to be graphed
+//        mean - double - a double containing the mean value of the data
+//        stdDev - double - a double containing the standard deviation of the data
+//        min - int - the smallest value in data
+//        max - int - the largest value in data
+// Output: Writes a .svg file that creates a graph of the data
+void printSVGGraph(const vector<int> &data, const double mean, const double stdDev, const int min, const int max) {
     ofstream fout("output_graph.svg");
 
     //stores the size of the image and the margins
-    const int SVG_WIDTH{1000}, SVG_HEIGHT{500}, SVG_TOP{60}, SVG_BOTTOM{40}, SVG_LEFT{40}, SVG_RIGHT{40};
+    constexpr int SVG_WIDTH{1000}, SVG_HEIGHT{500}, SVG_TOP{60}, SVG_BOTTOM{40}, SVG_LEFT{40}, SVG_RIGHT{40};
     const string GRAPH_COLOR{"#0074d9"}; //selects the color for the graph
 
     //sets the X position of the mean, std dev, min, and max,
@@ -190,15 +194,15 @@ void printSVGGraph(vector<int> data, double mean, double stdDev, int min, int ma
 
 int main() {
     // Only uncomment one ifstream command at a time
-    // ifstream fin("ride_data.txt");
+    ifstream fin("ride_data.txt");
     // ifstream fin("ride_data2.txt");
     // ifstream fin("ride_data3.txt");
     // ifstream fin("ride_data4.txt");
-    ifstream fin("ride_data5.txt");
+    // ifstream fin("ride_data5.txt");
 
-    vector<int> values{}; // stores the data to be written to the .svg file
-    double mean{}, stdDeviation{};
-    int min{}, max{};
+    vector<int> values; // stores the data to be written to the .svg file
+    double mean{0.0}, stdDeviation{0.0};
+    int min{0}, max{0};
 
     values = readData(fin);
     mean = calculateMean(values);
