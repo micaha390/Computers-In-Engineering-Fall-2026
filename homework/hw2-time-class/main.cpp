@@ -5,6 +5,7 @@
 
 #include <iostream>
 
+using namespace std;
 
 class Time {
     public:
@@ -16,6 +17,7 @@ class Time {
         void setTime(int newHour, int newMinute);
 
         int toMinutes();
+        void print();
 
     private:
         int hour;
@@ -54,6 +56,13 @@ void Time::setTime(const int newHour, const int newMinute) {
 // Output: int - the number of minutes since midnight
 int Time::toMinutes() {
     return hour * 60 + minute;
+}
+
+// Function: Prints the current time to the console in 24-hour time
+// Inputs: None
+// Outputs: Prints the time to the console in the xx:xx format
+void Time::print() {
+    cout << hour << ":" << minute;
 }
 
 int main() {
