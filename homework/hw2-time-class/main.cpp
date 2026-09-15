@@ -15,6 +15,8 @@ class Time {
 
         void setTime(int newHour, int newMinute);
 
+        int toMinutes();
+
     private:
         int hour;
         int minute;
@@ -45,6 +47,13 @@ void Time::setTime(const int newHour, const int newMinute) {
         hour = 0;
         minute = 0;
     }
+}
+
+// Function: Returns the number of minutes since 0:00
+// Inputs: None
+// Output: int - the number of minutes since midnight
+int Time::toMinutes() {
+    return hour * 60 + minute;
 }
 
 int main() {
