@@ -21,8 +21,7 @@ class Time {
 };
 
 Time::Time() {
-    hour = 0;
-    minute = 0;
+    setTime(0, 0);
 }
 
 int Time::getHour() const {
