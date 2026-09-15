@@ -5,9 +5,19 @@
 
 #include <iostream>
 
+class Time {
+    public:
+        Time();
+    private:
+        int hour;
+        int minute;
+};
 
+Time::Time() {
+    hour = 0;
+    minute = 0;
+}
 
-int main()
-{
+int main() {
     return 0;
 }
