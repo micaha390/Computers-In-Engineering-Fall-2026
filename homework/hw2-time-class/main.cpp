@@ -20,6 +20,7 @@ class Time {
         void addMinutes(int minutes);
         void subtractMinutes(int minutes);
         void print() const;
+        void printTwelveHour() const;
         int toMinutes() const;
     private:
         int hour;
@@ -94,6 +95,15 @@ void Time::print() const {
     cout << hour << ":" << minute;
 }
 
+void Time::printTwelveHour() const {
+    if (hour > 12) {
+        cout << hour - 12 << ":" << minute << " PM";
+    }
+    else {
+        cout << hour << ":" << minute << " AM";
+    }
+}
+
 // Function: Takes 2 Time objects and returns the time in minutes between the 2 clocks
 // Inputs: clock1 - Time - A Time object representing a 24hr clock
 //         clock2 - Time - A Time object representing a 24hr clock
@@ -114,7 +124,13 @@ int main() {
     clock.setTime(7, clock.getMinute());
     clock.print();
     cout << endl;
-    clock.addMinutes(1818);
+    clock.printTwelveHour();
+    cout << endl;
+    clock.addMinutes(360);
+    clock.print();
+    cout << endl;
+    clock.printTwelveHour();
+    cout << endl;
     clock.print();
     cout << endl;
     clock.setTime(23, 50);
