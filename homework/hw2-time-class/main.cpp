@@ -20,11 +20,10 @@ class Time {
         void addMinutes(int minutes);
         void subtractMinutes(int minutes);
         void print() const;
-
+        int toMinutes() const;
     private:
         int hour;
         int minute;
-        int toMinutes() const;
 };
 
 Time::Time(const int newHour, const int newMinute) {
@@ -95,13 +94,20 @@ void Time::print() const {
     cout << hour << ":" << minute;
 }
 
+// Function: Takes 2 Time objects and returns the time in minutes between the 2 clocks
+// Inputs: clock1 - Time - A Time object representing a 24hr clock
+//         clock2 - Time - A Time object representing a 24hr clock
+// Outputs: int - The time in minutes between the 2 Time objects
+int timeBetweenClocks(Time clock1, Time clock2) {
+    return abs(clock1.toMinutes() - clock2.toMinutes());
+}
+
 int main() {
     Time clock{};
     clock.print();
     cout << endl;
     clock.setTime(9, 28);
     clock.print();
-    cout << endl << clock.toMinutes() << endl;
     clock.setTime(clock.getHour(), 40);
     clock.print();
     cout << endl;
