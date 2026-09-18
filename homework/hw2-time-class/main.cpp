@@ -16,7 +16,6 @@ class Time {
 
         void setTime(int newHour, int newMinute);
 
-        int toMinutes() const;
 
         void addMinutes(int minutes);
         void subtractMinutes(int minutes);
@@ -25,6 +24,7 @@ class Time {
     private:
         int hour;
         int minute;
+        int toMinutes() const;
 };
 
 Time::Time(const int newHour, const int newMinute) {
