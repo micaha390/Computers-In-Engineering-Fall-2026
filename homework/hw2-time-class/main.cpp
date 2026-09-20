@@ -113,34 +113,18 @@ int timeBetweenClocks(Time clock1, Time clock2) {
 }
 
 int main() {
-    Time clock{};
-    clock.print();
-    cout << endl;
-    clock.setTime(9, 28);
-    clock.print();
-    clock.setTime(clock.getHour(), 40);
-    clock.print();
-    cout << endl;
-    clock.setTime(7, clock.getMinute());
-    clock.print();
-    cout << endl;
-    clock.printTwelveHour();
-    cout << endl;
-    clock.addMinutes(360);
-    clock.print();
-    cout << endl;
-    clock.printTwelveHour();
-    cout << endl;
-    clock.print();
-    cout << endl;
-    clock.setTime(23, 50);
-    clock.print();
-    cout << endl;
-    clock.addMinutes(20);
-    clock.print();
-    cout << endl;
-    clock.subtractMinutes(80);
-    clock.print();
-    cout << endl;
+    Time clockA(7, 30);
+    // test 1: testing the constructor and toMinutes method
+    if (clockA.toMinutes() == 450) {
+        cout << "Test passed, 7:30 is 450 minutes passed midnight.";
+    }
+    else {
+        cout << "Test failed, 7:30 should be 450 minutes passed midnight, not " << clockA.toMinutes() << ".";
+    }
+
+    Time clockB(16, 45);
+
+
+
     return 0;
 }
