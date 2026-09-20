@@ -199,5 +199,17 @@ int main() {
         cout << "Test failed, 0:17 - 18 minutes should be 1439 minutes passed midnight,";
         cout << " not " << clockA.toMinutes() << ".";
     }
+    cout << endl;
+    // test 10: testing the timeBetweenClocks method
+    clockA.setTime(7, 30);
+    clockB.setTime(12, 59);
+    if (timeBetweenClocks(clockA, clockB) == 329) {
+        cout << "Test passed, there are 329 minutes between clockA and clockB";
+    }
+    else {
+        cout << "Test failed, there should be 329 minutes between clockA and clockB, ";
+        cout << "not " << abs(clockA.toMinutes() - clockB.toMinutes()) << ".";
+    }
+    cout << endl;
     return 0;
 }
