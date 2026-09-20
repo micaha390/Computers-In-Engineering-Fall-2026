@@ -169,5 +169,35 @@ int main() {
         cout << "Test failed, 23:59 should be 1439, not " << clockB.toMinutes() << ".";
     }
     cout << endl;
+    // test 7: testing the toMinutes method
+    clockA.setTime(17, 56);
+    if (clockA.toMinutes() == 1076) {
+        cout << "Test passed, 17:56 is 1076 minutes passed midnight.";
+    }
+    else {
+        cout << "Test failed, 17:56 should be 1076, not " << clockA.toMinutes() << ".";
+    }
+    cout << endl;
+    // test 8: testing the addMinutes method
+    clockA.setTime(9, 52);
+    clockA.addMinutes(1000);
+    if (clockA.toMinutes() == 152) {
+        cout << "Test passed, 9:52 + 1000 minutes is 152 minutes passed midnight.";
+    }
+    else {
+        cout << "Test failed, 9:52 + 1000 minutes should be 152 minutes passed midnight";
+        cout << ", not " << clockA.toMinutes() << ".";
+    }
+    cout << endl;
+    // test 9: testing the subtractMinutes method
+    clockA.setTime(0, 17);
+    clockA.subtractMinutes(18);
+    if (clockA.toMinutes() == 1439) {
+        cout << "Test passed, 0:17 - 18 minutes is 1439 minutes passed midnight.";
+    }
+    else {
+        cout << "Test failed, 0:17 - 18 minutes should be 1439 minutes passed midnight,";
+        cout << " not " << clockA.toMinutes() << ".";
+    }
     return 0;
 }
