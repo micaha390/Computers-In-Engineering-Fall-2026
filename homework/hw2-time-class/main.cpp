@@ -132,16 +132,42 @@ int main() {
     }
     cout << endl;
     Time clockB(-1, 45);
-    //test 3: testing an invalid input for the constructor/setTime method
+    // test 3: testing an invalid input for the constructor/setTime method
     if (clockB.toMinutes() == 0) {
         cout << "Test passed, both hours and minutes are set to 0 when the setTime method is given an invalid input";
     }
     else {
         cout << "Test failed, setTime does not correctly set both member variables to 0 when either input is invalid, ";
-        cout << endl << "clock is set to " << clockB.toMinutes() << " minutes past midnight.";
+        cout << endl << "clock is set to " << clockB.toMinutes() << " minutes passed midnight.";
     }
     cout << endl;
-
-
+    // test 4: checking the setTime method when given an invalid input for the minutes
+    clockB.setTime(17, 60);
+    if (clockB.toMinutes() == 0) {
+        cout << "Test passed, both hours and minutes are set to 0 when the setTime method is given an invalid input";
+    }
+    else {
+        cout << "Test failed, setTime does not correctly set both member variables to 0 when either input is invalid, ";
+        cout << endl << "clock is set to " << clockB.toMinutes() << " minutes passed midnight.";
+    }
+    cout << endl;
+    // test 5: testing border cases for setTime
+    clockA.setTime(0, 0);
+    if (clockA.toMinutes() == 0) {
+        cout << "Test passed, 0:00 is 0 minutes passed midnight.";
+    }
+    else {
+        cout << "Test failed, 0:00 should be 0 minutes passed midnight, not " << clockA.toMinutes() << ".";
+    }
+    cout << endl;
+    // test 6: testing additional border cases for setTime
+    clockB.setTime(23, 59);
+    if (clockB.toMinutes() == 1439) {
+        cout << "Test passed, 23:59 is 1439 minutes passed midnight.";
+    }
+    else {
+        cout << "Test failed, 23:59 should be 1439, not " << clockB.toMinutes() << ".";
+    }
+    cout << endl;
     return 0;
 }
