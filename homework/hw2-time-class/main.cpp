@@ -44,7 +44,7 @@ int Time::getMinute() const {
 //        newMinute - int - the minute you want to set the time to, the value must be between 0 and 59
 // Output: Outputs the input variables to the Time object
 void Time::setTime(const int newHour, const int newMinute) {
-    if ((newHour <= 23 && newHour >= 0) || (newMinute <= 59 && newMinute >= 0)) {
+    if ((newHour <= 23 && newHour >= 0) && (newMinute <= 59 && newMinute >= 0)) {
         hour = newHour;
         minute = newMinute;
     }
@@ -121,9 +121,26 @@ int main() {
     else {
         cout << "Test failed, 7:30 should be 450 minutes passed midnight, not " << clockA.toMinutes() << ".";
     }
-
-    Time clockB(16, 45);
-
+    cout << endl;
+    // test 2: testing the setTime method
+    clockA.setTime(9, 15);
+    if (clockA.toMinutes() == 555) {
+        cout << "Test passed, 9:15 is 555 minutes passed midnight.";
+    }
+    else {
+        cout << "Test failed, 9:15 should be 555 minutes passed midnight, not " << clockA.toMinutes() << ".";
+    }
+    cout << endl;
+    Time clockB(-1, 45);
+    //test 3: testing an invalid input for the constructor/setTime method
+    if (clockB.toMinutes() == 0) {
+        cout << "Test passed, both hours and minutes are set to 0 when the setTime method is given an invalid input";
+    }
+    else {
+        cout << "Test failed, setTime does not correctly set both member variables to 0 when either input is invalid, ";
+        cout << endl << "clock is set to " << clockB.toMinutes() << " minutes past midnight.";
+    }
+    cout << endl;
 
 
     return 0;
