@@ -114,6 +114,10 @@ int timeBetweenClocks(Time clock1, Time clock2) {
 
 int main() {
     Time clockA(7, 30);
+    //testing the print method
+    cout << "clockA.print() displays ";
+    clockA.print();
+    cout << " to the console." << endl;
     // test 1: testing the constructor and toMinutes method
     if (clockA.toMinutes() == 450) {
         cout << "Test passed, 7:30 is 450 minutes passed midnight.";
@@ -124,49 +128,56 @@ int main() {
     cout << endl;
     // test 2: testing the setTime method
     clockA.setTime(9, 15);
-    if (clockA.toMinutes() == 555) {
-        cout << "Test passed, 9:15 is 555 minutes passed midnight.";
+    if (clockA.getHour() == 9 and clockA.getMinute() == 15) {
+        cout << "Test passed, time is 9:15";
     }
     else {
-        cout << "Test failed, 9:15 should be 555 minutes passed midnight, not " << clockA.toMinutes() << ".";
+        cout << "Test failed, time should be 9:15, not ";
+        clockA.print();
+        cout << ".";
     }
     cout << endl;
     Time clockB(-1, 45);
     // test 3: testing an invalid input for the constructor/setTime method
-    if (clockB.toMinutes() == 0) {
+    if (clockB.getHour() == 0 && clockB.getMinute() == 0) {
         cout << "Test passed, both hours and minutes are set to 0 when the setTime method is given an invalid input";
     }
     else {
         cout << "Test failed, setTime does not correctly set both member variables to 0 when either input is invalid, ";
-        cout << endl << "clock is set to " << clockB.toMinutes() << " minutes passed midnight.";
+        cout << endl << "clock is set to ";
+        clockB.print();
     }
     cout << endl;
     // test 4: checking the setTime method when given an invalid input for the minutes
     clockB.setTime(17, 60);
-    if (clockB.toMinutes() == 0) {
+    if (clockB.getHour() == 0 && clockB.getMinute() == 0) {
         cout << "Test passed, both hours and minutes are set to 0 when the setTime method is given an invalid input";
     }
     else {
         cout << "Test failed, setTime does not correctly set both member variables to 0 when either input is invalid, ";
-        cout << endl << "clock is set to " << clockB.toMinutes() << " minutes passed midnight.";
+        cout << endl << "clock is set to ";
+        clockB.print();
     }
     cout << endl;
     // test 5: testing border cases for setTime
     clockA.setTime(0, 0);
-    if (clockA.toMinutes() == 0) {
-        cout << "Test passed, 0:00 is 0 minutes passed midnight.";
+    if (clockA.getHour() == 0 && clockA.getMinute() == 0) {
+        cout << "Test passed, time is 0:00.";
     }
     else {
-        cout << "Test failed, 0:00 should be 0 minutes passed midnight, not " << clockA.toMinutes() << ".";
+        cout << "Test failed, time should be 0:00, not ";
+        clockA.print();
     }
     cout << endl;
     // test 6: testing additional border cases for setTime
     clockB.setTime(23, 59);
-    if (clockB.toMinutes() == 1439) {
-        cout << "Test passed, 23:59 is 1439 minutes passed midnight.";
+    if (clockB.getHour() == 23 && clockB.getMinute() == 59) {
+        cout << "Test passed, time is 23:59.";
     }
     else {
-        cout << "Test failed, 23:59 should be 1439, not " << clockB.toMinutes() << ".";
+        cout << "Test failed, time should be 23:59, not ";
+        clockB.print();
+        cout << ".";
     }
     cout << endl;
     // test 7: testing the toMinutes method
@@ -181,23 +192,25 @@ int main() {
     // test 8: testing the addMinutes method
     clockA.setTime(9, 52);
     clockA.addMinutes(1000);
-    if (clockA.toMinutes() == 152) {
-        cout << "Test passed, 9:52 + 1000 minutes is 152 minutes passed midnight.";
+    if (clockA.getHour() == 2 && clockA.getMinute() == 32) {
+        cout << "Test passed, 9:52 + 1000 is 2:32.";
     }
     else {
-        cout << "Test failed, 9:52 + 1000 minutes should be 152 minutes passed midnight";
-        cout << ", not " << clockA.toMinutes() << ".";
+        cout << "Test failed, 9:52 + 1000 minutes should 2:32, not ";
+        clockA.print();
+        cout << ".";
     }
     cout << endl;
     // test 9: testing the subtractMinutes method
     clockA.setTime(0, 17);
     clockA.subtractMinutes(18);
-    if (clockA.toMinutes() == 1439) {
-        cout << "Test passed, 0:17 - 18 minutes is 1439 minutes passed midnight.";
+    if (clockA.getHour() == 23 && clockA.getMinute() == 59) {
+        cout << "Test passed, 0:17 - 18 minutes is 23:59.";
     }
     else {
-        cout << "Test failed, 0:17 - 18 minutes should be 1439 minutes passed midnight,";
-        cout << " not " << clockA.toMinutes() << ".";
+        cout << "Test failed, 0:17 - 18 minutes should be 23:59, not ";
+        clockA.print();
+        cout << ".";
     }
     cout << endl;
     // test 10: testing the timeBetweenClocks method
