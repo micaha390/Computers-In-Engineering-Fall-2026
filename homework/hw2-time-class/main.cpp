@@ -40,8 +40,8 @@ int Time::getMinute() const {
 }
 
 // Function: Sets the time stored in the Time object. When the inputs are invalid sets hour to 0 and minute to 0
-// Input: newHour - int - the hour you want to set the time to, the value must be between 0 and 23
-//        newMinute - int - the minute you want to set the time to, the value must be between 0 and 59
+// Input: newHour - int - the hour you want to set the time to, the value should be between 0 and 23
+//        newMinute - int - the minute you want to set the time to, the value should be between 0 and 59
 // Output: Outputs the input variables to the Time object
 void Time::setTime(const int newHour, const int newMinute) {
     if ((newHour <= 23 && newHour >= 0) && (newMinute <= 59 && newMinute >= 0)) {
