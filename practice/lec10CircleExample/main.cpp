@@ -31,6 +31,8 @@ int main() {
 
     cout << "radius = " << c1.getRadius() << endl;
     cout << "radius = " << c2.getRadius() << endl;
+    c2.setRadius(7);
+    cout << "radius = " << c2.getRadius() << endl;
     cout << "radius = " << c3.getRadius() << endl;
 
     return 0;
