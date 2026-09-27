@@ -59,3 +59,29 @@ double Ingredient::getQuantity() const {
 double Ingredient::getCostPerUnit() const {
     return costPerUnit;
 }
+
+// Function -- constructor for Ingredient objects
+// Inputs -- newName -- string -- the name for the ingredient, defaults to "generic ingredient"
+//           newUnit -- string -- the units for the ingredient, defaults to "cups"
+//           newQuantity -- double -- the amount of the ingredient, defaults to "1.0"
+//           newCostPerUnit -- double -- the cost per unit of the ingredient, defaults to "1.0"
+// Outputs -- none
+Ingredient::Ingredient(std::string const &newName, std::string const &newUnit,
+    double const &newQuantity, double const &newCostPerUnit) {
+
+    setName(newName);
+    setUnit(newUnit);
+    setQuantity(newQuantity);
+    setCostPerUnit(newCostPerUnit);
+}
+
+// Function -- outputs the member variables of an Ingredient object to the console
+// Inputs -- none
+// Outputs -- prints the member variables in a readable format
+void Ingredient::print() {
+    std::cout << "Ingredient: " << std::endl;
+    std::cout << "\tName: " << getName() << std::endl;
+    std::cout << "\tUnits: " << getUnit() << std::endl;
+    std::cout << "\tQuantity: " << getQuantity() << std::endl;
+    std::cout << "\tCost Per Unit: " << getCostPerUnit() << std::endl;
+}
