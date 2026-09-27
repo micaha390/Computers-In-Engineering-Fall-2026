@@ -6,4 +6,6 @@ set(CMAKE_CXX_STANDARD 20)
 add_executable(hw3 main.cpp
         Ingredient.cpp
         Ingredient.h
+        Recipe.cpp
+        Recipe.h
 )
