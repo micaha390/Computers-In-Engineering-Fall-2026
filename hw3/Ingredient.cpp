@@ -4,6 +4,21 @@
 
 #include "Ingredient.h"
 
+// Function -- constructor for Ingredient objects
+// Inputs -- newName -- string -- the name for the ingredient, defaults to "generic ingredient"
+//           newUnit -- string -- the units for the ingredient, defaults to "cups"
+//           newQuantity -- double -- the amount of the ingredient, defaults to "1.0"
+//           newCostPerUnit -- double -- the cost per unit of the ingredient, defaults to "1.0"
+// Outputs -- none
+Ingredient::Ingredient(std::string const &newName, std::string const &newUnit,
+    double const &newQuantity, double const &newCostPerUnit) {
+
+    setName(newName);
+    setUnit(newUnit);
+    setQuantity(newQuantity);
+    setCostPerUnit(newCostPerUnit);
+}
+
 // Function -- Sets the name of the Ingredient object
 // Inputs -- newName -- string -- the new name of the Ingredient object
 // Outputs -- none
@@ -44,6 +59,17 @@ void Ingredient::setCostPerUnit(double const &newCostPerUnit) {
     }
 }
 
+// Function -- Scales the quantity of the ingredient by an input factor
+// Inputs -- scalingFactor -- double -- The factor the ingredient is being scaled by
+//           Must be positive and greater than 0, otherwise the function does nothing
+//           If the quantity should be set to 0 then the ingredient should be removed
+// Outputs -- none
+void Ingredient::scale(double const &scalingFactor) {
+    if (scalingFactor > 0.0) {
+        quantity *= scalingFactor;
+    }
+}
+
 std::string Ingredient::getName() const {
     return name;
 }
@@ -60,19 +86,11 @@ double Ingredient::getCostPerUnit() const {
     return costPerUnit;
 }
 
-// Function -- constructor for Ingredient objects
-// Inputs -- newName -- string -- the name for the ingredient, defaults to "generic ingredient"
-//           newUnit -- string -- the units for the ingredient, defaults to "cups"
-//           newQuantity -- double -- the amount of the ingredient, defaults to "1.0"
-//           newCostPerUnit -- double -- the cost per unit of the ingredient, defaults to "1.0"
-// Outputs -- none
-Ingredient::Ingredient(std::string const &newName, std::string const &newUnit,
-    double const &newQuantity, double const &newCostPerUnit) {
-
-    setName(newName);
-    setUnit(newUnit);
-    setQuantity(newQuantity);
-    setCostPerUnit(newCostPerUnit);
+// Function -- gets the total cost of the ingredient by multiplying the cost per unit by the quantity of the ingredient
+// Inputs -- none
+// Outputs  -- double -- the total cost of the ingredient
+double Ingredient::getCost() const {
+    return quantity * costPerUnit;
 }
 
 // Function -- outputs the member variables of an Ingredient object to the console

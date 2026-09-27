@@ -16,13 +16,17 @@ class Ingredient {
         void setUnit(std::string const &newUnits);
         void setQuantity(double const &newQuantity);
         void setCostPerUnit(double const &newCostPerUnit);
+        void scale(double const &scalingFactor);
 
         std::string getName() const;
         std::string getUnit() const;
         double getQuantity() const;
         double getCostPerUnit() const;
+        double getCost() const;
 
         void print();
+
+
 
     private:
         std::string name;
