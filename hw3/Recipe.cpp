@@ -4,6 +4,8 @@
 
 #include "Recipe.h"
 
+#include <iomanip>
+
 // Function -- constructor for Recipe objects, ingredient is initialized to an empty vector by in its declaration,
 //             and is not changed by the constructor
 // Inputs -- newName -- string -- the name of the recipe, defaults to "generic recipe"
@@ -98,6 +100,6 @@ void Recipe::print() const {
     std::cout << "Recipe: " << std::endl;
     std::cout << "\tName: " << getName() << std::endl;
     std::cout << "\tServings: " << getServings() << std::endl;
-    std::cout << "\tCost Per Serving: " << currency << getCostPerServing() << std::endl;
-    std::cout << "\tTotal Cost: " << currency << getTotalCost() << std::endl;
+    std::cout << std::fixed << std::setprecision(2) << "\tCost Per Serving: " << currency << getCostPerServing() << std::endl;
+    std::cout << std::fixed << std::setprecision(2) << "\tTotal Cost: " << currency << getTotalCost() << std::endl;
 }
