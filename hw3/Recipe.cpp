@@ -41,3 +41,32 @@ std::string Recipe::getName() const {
 int Recipe::getServings() const {
     return servings;
 }
+
+// Function -- Adds an Ingredient object to your Recipe
+// Inputs -- newIngredient -- Ingredient -- an Ingredient object that is added to the ingredient vector
+// Output -- none
+void Recipe::addIngredient(Ingredient const &newIngredient) {
+    ingredient.push_back(newIngredient);
+}
+
+// Function -- Removes an Ingredient object from your Recipe
+// Inputs -- minusIngredient -- Ingredient -- an Ingredient object that is removed from the ingredient vector
+// Output -- none
+void Recipe::removeIngredient(std::string const &minusIngredient) {
+    for (int i = 0; i < ingredient.size(); i++) {
+        if (ingredient[i].getName() == minusIngredient) {
+            ingredient.erase(ingredient.begin() + i);
+        }
+    }
+}
+
+// Function -- Changes the number of servings in your Recipe and scales the ingredients to match the new serving
+// Inputs -- newServings -- int -- the new number of servings this Recipe makes
+// Outputs -- none
+void Recipe::scaleServings(int const &newServings){
+    const double scalingFactor = static_cast<double>(newServings) / servings;
+    for (auto i:ingredient) {
+        i.setQuantity(i.getQuantity() * scalingFactor);
+    }
+    servings = newServings;
+}

@@ -20,6 +20,10 @@ class Recipe {
         std::string getName() const;
         int getServings() const;
 
+        void addIngredient(Ingredient const &newIngredient);
+        void removeIngredient(std::string const &minusIngredient);
+        void scaleServings(int const &newServings);
+
     private:
         std::string name;
         int servings;
