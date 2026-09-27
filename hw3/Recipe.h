@@ -23,7 +23,7 @@ class Recipe {
     private:
         std::string name;
         int servings;
-        std::vector<Ingredient> ingredient;
+        std::vector<Ingredient> ingredient{};
 };
 
 

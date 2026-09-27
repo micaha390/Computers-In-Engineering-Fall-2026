@@ -4,7 +4,8 @@
 
 #include "Recipe.h"
 
-// Function -- constructor for Recipe objects
+// Function -- constructor for Recipe objects, ingredient is initialized to an empty vector by in its declaration,
+//             and is not changed by the constructor
 // Inputs -- newName -- string -- the name of the recipe, defaults to "generic recipe"
 //           newServings -- int -- the number of servings, defaults to "1"
 // Outputs -- none
