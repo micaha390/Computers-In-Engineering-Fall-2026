@@ -67,7 +67,7 @@ void Recipe::removeIngredient(std::string const &minusIngredient) {
 // Outputs -- none
 void Recipe::scaleServings(int const &newServings){
     const double scalingFactor = static_cast<double>(newServings) / servings;
-    for (auto i:ingredient) {
+    for (auto &i:ingredient) {
         i.setQuantity(i.getQuantity() * scalingFactor);
     }
     servings = newServings;

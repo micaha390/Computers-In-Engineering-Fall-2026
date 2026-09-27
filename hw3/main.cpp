@@ -26,5 +26,8 @@ int main() {
 
     recipe2.print();
 
+    recipe2.scaleServings(7);
+    recipe2.print();
+
     return 0;
 }
