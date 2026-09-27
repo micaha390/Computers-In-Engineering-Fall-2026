@@ -29,6 +29,11 @@ class Ingredient {
 
 
     private:
+        /* the currency symbol output with costs,
+         * change this this to a string and edit the print function to output currency after the costs
+         * if you want to use a currency code instead of a symbol
+         */
+        static constexpr char currency = '$';
         std::string name;
         std::string unit;
         double quantity;

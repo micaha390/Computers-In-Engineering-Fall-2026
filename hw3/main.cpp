@@ -10,5 +10,11 @@ int main() {
     ingredient1.print();
     ingredient2.print();
 
+    ingredient2.scale(4);
+    ingredient2.print();
+
+    ingredient2.scale(-1);
+    ingredient2.print();
+
     return 0;
 }

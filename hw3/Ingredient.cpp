@@ -101,5 +101,6 @@ void Ingredient::print() {
     std::cout << "\tName: " << getName() << std::endl;
     std::cout << "\tUnits: " << getUnit() << std::endl;
     std::cout << "\tQuantity: " << getQuantity() << std::endl;
-    std::cout << "\tCost Per Unit: " << getCostPerUnit() << std::endl;
+    std::cout << "\tCost Per Unit: " << currency << getCostPerUnit() << std::endl;
+    std::cout << "\tTotal Cost: " << currency << getCost() << std::endl;
 }
