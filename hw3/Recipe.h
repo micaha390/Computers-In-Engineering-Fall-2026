@@ -12,6 +12,8 @@
 
 class Recipe {
     public:
+        Recipe(std::string const &newName = "generic recipe", int const &newServings = 1);
+
         void setName(std::string const &newName);
         void setServings(int const &newServings);
 

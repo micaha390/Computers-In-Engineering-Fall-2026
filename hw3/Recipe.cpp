@@ -4,6 +4,15 @@
 
 #include "Recipe.h"
 
+// Function -- constructor for Recipe objects
+// Inputs -- newName -- string -- the name of the recipe, defaults to "generic recipe"
+//           newServings -- int -- the number of servings, defaults to "1"
+// Outputs -- none
+Recipe::Recipe(std::string const &newName, int const &newServings) {
+    setName(newName);
+    setServings(newServings);
+}
+
 // Function -- Sets the name of the Recipe object
 // Inputs -- newName -- string -- the new name of the Recipe object
 // Outputs -- none
