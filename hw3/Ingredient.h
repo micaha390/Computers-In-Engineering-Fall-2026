@@ -8,15 +8,15 @@
 
 class Ingredient {
     public:
-        void setName(std::string newName);
-        void setUnits(std::string newUnits);
-        void setQuantity(double newQuantity);
-        void setCostPerUnit(double newCost);
+        void setName(std::string const &newName);
+        void setUnit(std::string const &newUnits);
+        void setQuantity(double const &newQuantity);
+        void setCostPerUnit(double const &newCostPerUnit);
 
-        std::string getName();
-        std::string getUnits();
-        double getQuantity();
-        double getCostPerUnit();
+        std::string getName() const;
+        std::string getUnit() const;
+        double getQuantity() const;
+        double getCostPerUnit() const;
 
     private:
         std::string name;
