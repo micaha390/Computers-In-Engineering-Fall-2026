@@ -102,4 +102,8 @@ void Recipe::print() const {
     std::cout << "\tServings: " << getServings() << std::endl;
     std::cout << std::fixed << std::setprecision(2) << "\tCost Per Serving: " << currency << getCostPerServing() << std::endl;
     std::cout << std::fixed << std::setprecision(2) << "\tTotal Cost: " << currency << getTotalCost() << std::endl;
+    std::cout  << "\tIngredients:" << std::endl;
+    for (auto i:ingredient) {
+        std::cout << "\t\t" << i.getQuantity() << " " << i.getUnit() << " " << i.getName() << std::endl;
+    }
 }
