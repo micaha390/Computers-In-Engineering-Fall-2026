@@ -12,6 +12,12 @@
 
 class Recipe {
     public:
+        void setName(std::string const &newName);
+        void setServings(int const &newServings);
+
+        std::string getName() const;
+        std::string getServings() const;
+        
     private:
         std::string name;
         int servings;

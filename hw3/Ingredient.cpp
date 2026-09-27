@@ -33,9 +33,9 @@ void Ingredient::setUnit(std::string const &newUnit) {
     unit = newUnit;
 }
 
-// Function -- Sets the quantity of the Ingredient object to a positive double
+// Function -- Sets the quantity of the Ingredient object to a positive double greater than 0.0
 // Inputs -- newQuantity -- double -- the new quantity of the Ingredient object,
-//           if it is not positive quantity is set to 1.0
+//           if it is not positive and greater than 0.0 quantity is set to 1.0
 // Outputs -- none
 void Ingredient::setQuantity(double const &newQuantity) {
     if (newQuantity > 0.0) {
@@ -46,9 +46,9 @@ void Ingredient::setQuantity(double const &newQuantity) {
     }
 }
 
-// Function -- Sets the cost per unit of the Ingredient object to a positive double
+// Function -- Sets the cost per unit of the Ingredient object to a positive double greater than 0.0
 // Inputs -- newCostPerUnit -- double -- the new cost per unit of the Ingredient object,
-//           if it is not positive quantity is set to 1.0
+//           if it is not positive and greater than 0.0 quantity is set to 1.0
 // Outputs -- none
 void Ingredient::setCostPerUnit(double const &newCostPerUnit) {
     if (newCostPerUnit > 0.0) {
