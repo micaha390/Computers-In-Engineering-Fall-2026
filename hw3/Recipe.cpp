@@ -23,3 +23,11 @@ void Recipe::setServings(int const &newServings) {
         servings = 1;
     }
 }
+
+std::string Recipe::getName() const {
+    return name;
+}
+
+int Recipe::getServings() const {
+    return servings;
+}

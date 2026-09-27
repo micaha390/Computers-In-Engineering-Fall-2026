@@ -16,8 +16,8 @@ class Recipe {
         void setServings(int const &newServings);
 
         std::string getName() const;
-        std::string getServings() const;
-        
+        int getServings() const;
+
     private:
         std::string name;
         int servings;
