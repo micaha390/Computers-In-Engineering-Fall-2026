@@ -1,20 +1,15 @@
 #include <iostream>
 #include "Ingredient.h"
+#include "Recipe.h"
 
 using namespace std;
 
 int main() {
-    Ingredient ingredient1;
-    Ingredient ingredient2("flour", "grams", 780, .01);
+    Recipe recipe1;
+    Recipe recipe2("Honey Chicken", 10);
 
-    ingredient1.print();
-    ingredient2.print();
-
-    ingredient2.scale(4);
-    ingredient2.print();
-
-    ingredient2.scale(-1);
-    ingredient2.print();
+    recipe1.print();
+    recipe2.print();
 
     return 0;
 }

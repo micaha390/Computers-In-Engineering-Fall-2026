@@ -88,7 +88,7 @@ double Ingredient::getCostPerUnit() const {
 
 // Function -- gets the total cost of the ingredient by multiplying the cost per unit by the quantity of the ingredient
 // Inputs -- none
-// Outputs  -- double -- the total cost of the ingredient
+// Outputs -- double -- the total cost of the ingredient
 double Ingredient::getCost() const {
     return quantity * costPerUnit;
 }

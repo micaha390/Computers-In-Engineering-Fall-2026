@@ -70,3 +70,34 @@ void Recipe::scaleServings(int const &newServings){
     }
     servings = newServings;
 }
+
+// Function -- Returns the total cost of the recipe by summing the costs of the ingredients
+// Inputs -- none
+// Outputs -- totalCost -- double -- The total cost of the recipe
+double Recipe::getTotalCost() const {
+    double totalCost{0};
+
+    for (auto i:ingredient) {
+        totalCost += i.getCost();
+    }
+
+    return totalCost;
+}
+
+// Function -- Returns the cost per serving of the recipe
+// Inputs -- none
+// Outputs -- double -- The cost of the recipe per serving
+double Recipe::getCostPerServing() const {
+    return getTotalCost() / getServings();
+}
+
+// Function -- outputs the member variables of a Recipe object to the console
+// Inputs -- none
+// Outputs -- prints the member variables in a readable format
+void Recipe::print() const {
+    std::cout << "Recipe: " << std::endl;
+    std::cout << "\tName: " << getName() << std::endl;
+    std::cout << "\tServings: " << getServings() << std::endl;
+    std::cout << "\tCost Per Serving: " << currency << getCostPerServing() << std::endl;
+    std::cout << "\tTotal Cost: " << currency << getTotalCost() << std::endl;
+}
