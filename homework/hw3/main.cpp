@@ -1,3 +1,9 @@
+// programmer: Micah Anderson
+// date: September 28 2026
+// filename: main.cpp
+// description: this program models recipes using a class that contains a vector of ingredient objects
+
+
 #include <iostream>
 #include "Ingredient.h"
 #include "Recipe.h"
